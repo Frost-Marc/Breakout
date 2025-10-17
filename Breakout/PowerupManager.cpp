@@ -60,7 +60,7 @@ void PowerupManager::spawnPowerup()
     // TODO finish this.
     switch (rand() % 5)
     {
-    case 0:
+    /*case 0:
         _powerups.push_back(new PowerupBigPaddle(_window, _paddle, _ball));
         break;
     case 1:
@@ -71,7 +71,7 @@ void PowerupManager::spawnPowerup()
         break;
     case 3:
         _powerups.push_back(new PowerupSmallPaddle(_window, _paddle, _ball));
-        break;
+        break;*/
     case 4:
         _powerups.push_back(new PowerupFireBall(_window, _paddle, _ball));
         break;
