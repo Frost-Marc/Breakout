@@ -33,3 +33,5 @@ fire ball (green)
 
 # Time Details and Changelist
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
+fixed compiler error by commenting out #include of fire ball power up class from the .h of the base power up class to stop its circular dependancy - 10 mins
+chnaged colour of fireball power up to green to match specifications - 2 mins
