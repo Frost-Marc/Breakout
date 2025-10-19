@@ -148,6 +148,7 @@
     <ClCompile Include="MessagingSystem.cpp" />
     <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="PowerupBase.cpp" />
+    <ClCompile Include="PowerupBigBall.cpp" />
     <ClCompile Include="PowerupBigPaddle.cpp" />
     <ClCompile Include="PowerupFastBall.cpp" />
     <ClCompile Include="PowerupFireBall.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="MessagingSystem.h" />
     <ClInclude Include="Paddle.h" />
     <ClInclude Include="PowerupBase.h" />
+    <ClInclude Include="PowerupBigBall.h" />
     <ClInclude Include="PowerupBigPaddle.h" />
     <ClInclude Include="PowerupFastBall.h" />
     <ClInclude Include="PowerupFireBall.h" />

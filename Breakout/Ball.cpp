@@ -1,6 +1,5 @@
 #include "Ball.h"
 #include "GameManager.h" // avoid cicular dependencies
-#include <iostream>
 
 Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     : _window(window), _velocity(velocity), _gameManager(gameManager),
@@ -9,6 +8,8 @@ Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
     _sprite.setPosition(0, 300);
+
+    _radius = RADIUS;
 }
 
 Ball::~Ball()
@@ -25,7 +26,14 @@ void Ball::update(float dt)
     else
     {
         if (_velocity != VELOCITY)
+        {
             _velocity = VELOCITY;   // reset speed.
+        }
+        else if (_radius != RADIUS)
+        {
+            _radius = RADIUS;       // reset raidus
+            _sprite.setRadius(_radius);
+        }
         else
         {
             setFireBall(0);    // disable fireball
@@ -51,7 +59,7 @@ void Ball::update(float dt)
     updateTrail(dt);
 
     // bounce on walls
-    if ((position.x >= windowDimensions.x - 2 * RADIUS && _direction.x > 0) || (position.x <= 0 && _direction.x < 0))
+    if ((position.x >= windowDimensions.x - 2 * _radius && _direction.x > 0) || (position.x <= 0 && _direction.x < 0))
     {
         _direction.x *= -1;
     }
@@ -71,7 +79,7 @@ void Ball::update(float dt)
         _direction.x = paddlePositionProportion * 2.0f - 1.0f;
 
         // Adjust position to avoid getting stuck inside the paddle
-        _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * RADIUS);
+        _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * _radius);
     }
 
     // collision with bricks
@@ -108,7 +116,7 @@ void Ball::render()
         float alphaFactor = 1.0f - static_cast<float>(i) / trailPos.size();
         sf::Uint8 alpha = static_cast<sf::Uint8>(alphaFactor * 255);
 
-        sf::CircleShape trailDot(RADIUS * (0.75f + 0.25f * alphaFactor));
+        sf::CircleShape trailDot(_radius * (0.75f + 0.25f * alphaFactor));
         trailDot.setPosition(trailPos[i]);
 
         if (_isFireBall)
@@ -142,6 +150,13 @@ void Ball::setFireBall(float duration)
     }
     _isFireBall = false;
     _timeWithPowerupEffect = 0.f;    
+}
+
+void Ball::setRadius(float coeff, float duration)
+{
+    _radius = coeff * RADIUS;
+    _sprite.setRadius(_radius);
+    _timeWithPowerupEffect = duration;
 }
 
 void Ball::updateTrail(float dt)

@@ -37,7 +37,7 @@ void UI::updatePowerupText(std::pair<POWERUPS, float> powerup)
 	{
 	case bigPaddle:
 		oss << std::fixed << std::setprecision(2) << powerup.second;
-		_powerupText.setString("big " + oss.str());
+		_powerupText.setString("big p " + oss.str());
 		_powerupText.setFillColor(paddleEffectsColour);
 		break;
 	case smallPaddle:
@@ -59,6 +59,11 @@ void UI::updatePowerupText(std::pair<POWERUPS, float> powerup)
 		oss << std::fixed << std::setprecision(2) << powerup.second;
 		_powerupText.setString("fire " + oss.str());
 		_powerupText.setFillColor(extraBallEffectsColour);
+		break;
+	case bigBall:
+		oss << std::fixed << std::setprecision(2) << powerup.second;
+		_powerupText.setString("big b " + oss.str());
+		_powerupText.setFillColor(ballEffectsColour);
 		break;
 	case none:
 		_powerupText.setString("");
