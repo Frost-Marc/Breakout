@@ -62,12 +62,14 @@ void Ball::update(float dt)
     if ((position.x >= windowDimensions.x - 2 * _radius && _direction.x > 0) || (position.x <= 0 && _direction.x < 0))
     {
         _direction.x *= -1;
+        _gameManager->startScreenShake(0.2f, 4.0f);
     }
 
     // bounce on ceiling
     if (position.y <= 0 && _direction.y < 0)
     {
         _direction.y *= -1;
+        _gameManager->startScreenShake(0.3f, 6.0f);
     }
 
     // collision with paddle

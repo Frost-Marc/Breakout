@@ -30,6 +30,8 @@ void GameManager::initialize()
 
 void GameManager::update(float dt)
 {
+    updateScreenShake(dt);
+
     _powerupInEffect = _powerupManager->getPowerupInEffect();
     _ui->updatePowerupText(_powerupInEffect);
     _powerupInEffect.second -= dt;
@@ -93,6 +95,7 @@ void GameManager::loseLife()
     _ui->lifeLost(_lives);
 
     // TODO screen shake.
+    startScreenShake(0.5f, 10.0f);
 }
 
 void GameManager::render()
@@ -108,6 +111,42 @@ void GameManager::render()
 void GameManager::levelComplete()
 {
     _levelComplete = true;
+}
+
+void GameManager::startScreenShake(float duration, float magnitude)
+{
+    if (!_isShaking)
+    {
+        _originalViewCenter = _window->getView().getCenter();
+    }
+
+    _isShaking = true;
+    _shakeDuration = duration;
+    _shakeMagnitude = magnitude;
+    _shakeTimer = duration;
+}
+
+void GameManager::updateScreenShake(float dt)
+{
+    if (!_isShaking) return;
+
+    _shakeTimer -= dt;
+    sf::View view = _window->getView();
+
+    if (_shakeTimer <= 0.0f)
+    {
+        _isShaking = false;
+        view.setCenter(_originalViewCenter);
+        _window->setView(view);
+    }
+    else
+    {
+        float offsetX = ((rand() % 100) / 100.0f * 2 - 1) * _shakeMagnitude;
+        float offsetY = ((rand() % 100) / 100.0f * 2 - 1) * _shakeMagnitude;
+
+        view.setCenter(_originalViewCenter + sf::Vector2f(offsetY, offsetY));
+        _window->setView(view);
+    }
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }

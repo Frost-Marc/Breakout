@@ -20,6 +20,9 @@ public:
     void levelComplete();
     void powerupEffect(POWERUPS pu, float t);
 
+    void startScreenShake(float duration, float magnitude);
+    void updateScreenShake(float dt);
+
     Paddle* getPaddle() const;
     BrickManager* getBrickManager() const;
     PowerupManager* getPowerupManager() const;
@@ -49,4 +52,10 @@ private:
 
     static constexpr float PAUSE_TIME_BUFFER = 0.5f;
     static constexpr float POWERUP_FREQUENCY = 7.5f;    // time between minimum powerup spawn
+
+    bool _isShaking = false;
+    float _shakeDuration = 0.0f;
+    float _shakeMagnitude = 5.0f;
+    float _shakeTimer = 0.0f;
+    sf::Vector2f _originalViewCenter;
 };
