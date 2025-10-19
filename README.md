@@ -38,3 +38,4 @@ fire ball (green)
 - added trail vfx to ball, trail follows balls movement and direction by creating a ball at the past positions of the ball then removes them over time when it reaches the max trail length - 1hr
 - added new ball power up, big ball, doubles the radius of the ball - 1hr
 - added new ball power up, small ball, halfs the radius of the ball - 15 mins
+- added screen shake to the game, the screen shakes at varieying intensities and durations when the ball hits walls, ceiling and when loosing a life - 30mins
