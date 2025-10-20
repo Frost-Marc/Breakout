@@ -35,9 +35,10 @@ fire ball (green)
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
 
 - fixed compiler error by commenting out #include of fire ball power up class from the .h of the base power up class to stop its circular dependancy - 5 mins
-- chnaged colour of fireball power up to green to match specifications - 2 mins
+- changed colour of fireball power up to green to match specifications - 2 mins
 - added trail vfx to ball, trail follows balls movement and direction by creating a ball at its past positions then removes them over time when it reaches the max trail length - 1hr
 - added to trail vfx so that when the ball breaks a brick the trails colour is randomized and changed except for when it has the fireball power up - 1hr
+- updated how the trail is held and created so that each dot that makes up the trails colour and position is accesable seperatly, did this so that when the trail changes colour only new dots change so the trail can appear multicoloured - 30mins
 - added new ball power up, big ball, doubles the radius of the ball - 1hr
 - added new ball power up, small ball, halfs the radius of the ball - 15 mins
 - added screen shake to the game, the screen shakes at varieying intensities and durations when the ball hits walls, ceiling and when loosing a life - 30mins
