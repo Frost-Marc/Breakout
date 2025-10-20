@@ -5,7 +5,12 @@
 
 class GameManager;  // forward declaration
 
-
+//struct which holds the position and colour for each circle that makes up the trail
+struct TrailDot
+{
+    sf::Vector2f Position;
+    sf::Color Colour;
+};
 
 class Ball {
 public:
@@ -33,7 +38,8 @@ private:
     static constexpr float RADIUS = 10.0f;      
     static constexpr float VELOCITY = 350.0f;   // for reference.
 
-    std::deque<sf::Vector2f> trailPos;
+    //variables and fucntions for the trail vfx
+    std::deque<TrailDot> trailDots;
     const int trailLength = 100;
     float trailTimer = 0.f;
     const float trailUpdateInterval = 0.015f;

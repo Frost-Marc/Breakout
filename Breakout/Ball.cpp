@@ -106,7 +106,7 @@ void Ball::update(float dt)
         _sprite.setPosition(0, 300);
         _direction = { 1, 1 };
 
-        trailPos.clear();
+        trailDots.clear();
 
         _gameManager->loseLife();
         
@@ -117,23 +117,21 @@ void Ball::update(float dt)
 
 void Ball::render()
 {
-    for (size_t i = 0; i < trailPos.size(); ++i)
+    //renders each circle
+    for (size_t i = 0; i < trailDots.size(); ++i)
     {
-        float alphaFactor = 1.0f - static_cast<float>(i) / trailPos.size();
+        //changes the alpha value based on how many circles are in the trail
+        float alphaFactor = 1.0f - static_cast<float>(i) / trailDots.size();
         sf::Uint8 alpha = static_cast<sf::Uint8>(alphaFactor * 255);
 
+        //creates the circle setting its radius and position
         sf::CircleShape trailDot(_radius * (0.75f + 0.25f * alphaFactor));
-        trailDot.setPosition(trailPos[i]);
-        //trailDot.setFillColor(sf::Color(trailColour.r, trailColour.g, trailColour.b, alpha));
+        trailDot.setPosition(trailDots[i].Position);
 
-        if (_isFireBall)
-        {
-            trailDot.setFillColor(sf::Color(255, 100, 0, alpha));
-        }
-        else
-        {
-            trailDot.setFillColor(sf::Color(trailColour.r, trailColour.g, trailColour.b, alpha));
-        }
+        //sets the colour and alpha of the circle as it is rendered
+        sf::Color c = trailDots[i].Colour;
+        c.a = alpha;
+        trailDot.setFillColor(c);
 
         _window->draw(trailDot);
     }
@@ -170,15 +168,30 @@ void Ball::updateTrail(float dt)
 {
     //slows the removal of trail
     trailTimer += dt;
+
+    //whenever the ball moves updates the trail to add or remove circles from the trail
     if (trailTimer >= trailUpdateInterval)
     {
-        //add current ball pos to the front
-        trailPos.push_front(_sprite.getPosition());
+        TrailDot dot;
+
+        dot.Position = _sprite.getPosition();
+        
+        //updates the colour of the circles as they are made to allow for mid trail changes
+        if (_isFireBall)
+        {
+            dot.Colour = sf::Color(255, 100, 0);
+        }
+        else
+        {
+            dot.Colour = trailColour;
+        }
+
+        trailDots.push_front(dot);
 
         //limit the amount of balls in trail
-        if (trailPos.size() > trailLength)
+        if (trailDots.size() > trailLength)
         {
-            trailPos.pop_back();
+            trailDots.pop_back();
         }
 
         trailTimer = 0.f;
