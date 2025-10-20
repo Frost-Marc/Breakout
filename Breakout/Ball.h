@@ -37,6 +37,7 @@ private:
     const int trailLength = 100;
     float trailTimer = 0.f;
     const float trailUpdateInterval = 0.015f;
+    sf::Color trailColour = sf::Color(0, 255, 255, 255);
 
     void updateTrail(float dt);
 };

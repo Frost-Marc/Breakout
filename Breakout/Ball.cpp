@@ -90,10 +90,14 @@ void Ball::update(float dt)
     if (collisionResponse == 1)
     {
         _direction.x *= -1; // Bounce horizontally
+
+        trailColour = sf::Color(rand() % 255, rand() % 255, rand() % 255);
     }
     else if (collisionResponse == 2)
     {
         _direction.y *= -1; // Bounce vertically
+
+        trailColour = sf::Color(rand() % 255, rand() % 255, rand() % 255);
     }
 
     // lose life bounce
@@ -120,6 +124,7 @@ void Ball::render()
 
         sf::CircleShape trailDot(_radius * (0.75f + 0.25f * alphaFactor));
         trailDot.setPosition(trailPos[i]);
+        //trailDot.setFillColor(sf::Color(trailColour.r, trailColour.g, trailColour.b, alpha));
 
         if (_isFireBall)
         {
@@ -127,7 +132,7 @@ void Ball::render()
         }
         else
         {
-            trailDot.setFillColor(sf::Color(0, 255, 255, alpha));
+            trailDot.setFillColor(sf::Color(trailColour.r, trailColour.g, trailColour.b, alpha));
         }
 
         _window->draw(trailDot);
