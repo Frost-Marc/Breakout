@@ -103,6 +103,14 @@ void Ball::update(float dt)
     // lose life bounce
     if (position.y > windowDimensions.y)
     {
+        if (_shieldActive)
+        {
+            _direction.y *= -1; //bounces ball off shield if it is active
+            _sprite.setPosition(_sprite.getPosition().x, windowDimensions.y - 50.f); //pushes the ball sprite above the shield
+            _shieldActive = false; //shield is one time use each pick up
+            return; //returns so the lose of life code is not run while the shield is active
+        }
+
         _sprite.setPosition(0, 300);
         _direction = { 1, 1 };
 
@@ -137,6 +145,11 @@ void Ball::render()
     }
 
     _window->draw(_sprite);
+
+    if (_shieldActive)
+    {
+        _window->draw(_shield); //only draws shield while it is active
+    }
 }
 
 void Ball::setVelocity(float coeff, float duration)
@@ -162,6 +175,14 @@ void Ball::setRadius(float coeff, float duration)
     _radius = coeff * RADIUS;
     _sprite.setRadius(_radius);
     _timeWithPowerupEffect = duration;
+}
+
+void Ball::activateShield()
+{
+    _shieldActive = true;
+    _shield.setSize(sf::Vector2f(_window->getSize().x, 10.f)); //sets shield width and height
+    _shield.setFillColor(sf::Color(255, 165, 0)); //sets shield colour
+    _shield.setPosition((_window->getSize().x - _shield.getSize().x) / 2, _window->getSize().y - 10.f); //shield position is set to just above the bottom of the screen
 }
 
 void Ball::updateTrail(float dt)

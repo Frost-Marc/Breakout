@@ -22,6 +22,8 @@ public:
     void setFireBall(float duration);
     void setRadius(float coeff, float duration);
 
+    void activateShield();
+
 private:
     sf::CircleShape _sprite;
     sf::Vector2f _direction;
@@ -46,5 +48,8 @@ private:
     sf::Color trailColour = sf::Color(0, 255, 255, 255);
 
     void updateTrail(float dt);
+
+    bool _shieldActive = false;
+    sf::RectangleShape _shield;
 };
 

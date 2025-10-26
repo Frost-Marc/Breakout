@@ -58,7 +58,7 @@ void PowerupManager::spawnPowerup()
 {
 
     // TODO finish this.
-    switch (rand() % 7)
+    switch (rand() % 8)
     {
     case 0:
         _powerups.push_back(new PowerupBigPaddle(_window, _paddle, _ball));
@@ -82,6 +82,9 @@ void PowerupManager::spawnPowerup()
         _powerups.push_back(new PowerupSmallBall(_window, _paddle, _ball));
         break;
     case 7:
+        _powerups.push_back(new PowerupShield(_window, _paddle, _ball)); //adding new case to switch so new shield power up can spawn randomly
+        break;
+    case 8:
         break;
     }
 
